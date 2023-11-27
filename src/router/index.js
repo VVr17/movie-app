@@ -12,6 +12,12 @@ const routes = [
     name: "Movies",
     component: () => import("@/views/MoviesView.vue"),
   },
+  {
+    path: "/movies/:id",
+    name: "MovieDetails",
+    component: () => import("@/views/MovieDetails.vue"),
+    props: true,
+  },
 
   // Not found 404
   {

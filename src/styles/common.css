@@ -1,0 +1,33 @@
+@tailwind components;
+
+@layer components {
+  .button {
+    @apply w-full p-3 text-lg uppercase transition duration-300 border border-transparent mob:text-xl;
+  }
+
+  .button-primary {
+    @apply bg-accent-green text-main-dark-gray border-accent-green;
+  }
+
+  .button-primary:hover,
+  .button-primary:focus {
+    @apply text-white bg-transparent;
+  }
+
+  .button-primary:disabled {
+    @apply bg-gray text-dark-gray;
+  }
+
+  .button-secondary {
+    @apply bg-transparent border border-accent-green text-accent-green;
+  }
+
+  .button-secondary:hover,
+  .button-secondary:focus {
+    @apply text-white border-white;
+  }
+
+  .button-secondary:disabled {
+    @apply border-gray text-gray;
+  }
+}

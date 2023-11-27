@@ -1,0 +1,25 @@
+@tailwind base;
+
+@layer base {
+  body {
+    @apply flex flex-col min-h-screen font-sans text-sm text-white desk:text-base bg-main-dark-gray;
+  }
+
+  .title-primary {
+    @apply text-3.5xl leading-9 tab:text-4.5xl tab:leading-11 desk:text-5xl desk:leading-12 font-normal text-accent-green;
+  }
+
+  .title-secondary {
+    @apply text-2xl font-normal tab:text-3xl desk:text-4xl text-accent-green;
+  }
+
+  .section {
+    @apply pt-8 pb-10;
+  }
+
+  .container {
+    @apply w-full mx-auto px-4
+    mob:w-[375px] mob:px-4
+    tab:w-[834px] tab:px-8;
+  }
+}

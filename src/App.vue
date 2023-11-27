@@ -1,22 +1,30 @@
 <template>
   <AppHeader />
-  <router-view />
+  <main>
+    <router-view />
+  </main>
+  <AppFooter />
 </template>
 
 <script>
-import AppHeader from "./components/Header.vue";
+import AppHeader from "@/components/Header.vue";
+import AppFooter from "@/components/Footer.vue";
 
 export default {
   name: "App",
-  components: { AppHeader },
+  components: { AppHeader, AppFooter },
+  setup() {
+    console.log("VUE_APP_API_BASE_URL", process.env.VUE_APP_API_BASE_URL);
+  },
 };
 </script>
 
 <style lang="scss">
-#app,
-#modalsTeleport {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+#app {
+  @apply grow flex flex-col;
+}
+
+main {
+  @apply grow;
 }
 </style>

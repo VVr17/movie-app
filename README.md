@@ -1,9 +1,5 @@
 # vue-project
 
-# rick-and-morty
-
-https://rickandmortyapi.com/api
-
 ## Project setup
 
 ```
