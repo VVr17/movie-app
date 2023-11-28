@@ -1,7 +1,7 @@
 <template>
   <div class="section">
     <div class="container">
-      <ul class="flex flex-col gap-6">
+      <ul class="flex flex-col gap-6 tab:gap-8 desk:gap-10">
         <li>
           <GenresTitle title="Movies" :category="movies" />
           <GenresList

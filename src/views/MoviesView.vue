@@ -1,14 +1,13 @@
 <template>
   <div class="section">
     <div class="container">
-      <h1 class="title-primary">Movies</h1>
-      <ul v-if="data?.results?.length">
-        <li v-for="movie in data.results" :key="movie.id">
-          <router-link :to="{ name: 'MovieDetails', params: { id: movie.id } }">
-            {{ movie.original_title || movie.original_name }}
-          </router-link>
-        </li>
-      </ul>
+      <BackButton />
+      <h1 class="mb-6 capitalize title-primary">{{ category }}</h1>
+      <FilterBar />
+      <ItemList v-if="data?.results?.length" :items="data.results" />
+      <h2 v-else class="text-xl title-secondary">
+        There is no movies / TV shows found on your request
+      </h2>
     </div>
   </div>
 </template>
@@ -24,6 +23,9 @@ import {
   TRENDING_TV_URL,
 } from "@/constants/urls";
 import useApiData from "@/composables/api/useApiData";
+import BackButton from "@/components/common/BackButton.vue";
+import ItemList from "@/components/catalog/list/ItemList.vue";
+import FilterBar from "@/components/catalog/filterBar/FilterBar.vue";
 
 export default {
   setup() {
@@ -41,19 +43,16 @@ export default {
         : category === CATEGORIES.tv
         ? TRENDING_TV_URL
         : TRENDING_MOVIE_URL;
-
     const searchParams = {
       page: "1",
       sort_by: "popularity.desc",
     };
-
     if (genre) searchParams.with_genres = genre;
-
     const { data, error, getData } = useApiData(url, searchParams);
     getData();
-
-    return { data, error };
+    return { data, error, category };
   },
+  components: { BackButton, ItemList, FilterBar },
 };
 </script>
 

@@ -1,7 +1,7 @@
 <template>
-  <ul class="grid grid-cols-2 gap-1 tab:grid-cols-4 desk:grid-cols-5">
+  <ul class="grid grid-cols-2 gap-3 tab:grid-cols-4 desk:grid-cols-5">
     <li
-      class="p-0.5 duration-300 ease-in-out rounded-sm bg-gray min-h-[80px] hover:bg-accent-green group"
+      class="group rounded-lg cursor-pointer p-0.5 duration-300 ease-in-out bg-gray hover:bg-accent-green group"
       v-for="genre in genres"
       :key="genre.id"
     >
@@ -11,10 +11,10 @@
           params: { category },
           query: { genre: genre.id },
         }"
-        class="flex flex-col items-center w-full h-full cursor-pointer bg-main-dark-gray rounded-min"
+        class="flex flex-col items-center w-full h-full p-2 rounded-lg cursor-pointer bg-filter-dark-gray rounded-min"
       >
         <span
-          class="flex items-center justify-center w-full h-full max-w-full py-1 break-words tab:px-1"
+          class="flex items-center justify-center w-full h-full max-w-full py-1 break-words group-hover:text-yellow-light tab:px-1"
         >
           {{ genre.name }}
         </span>
