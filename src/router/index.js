@@ -8,15 +8,14 @@ const routes = [
     component: HomeView,
   },
   {
-    path: "/movies",
+    path: "/:category",
     name: "Movies",
     component: () => import("@/views/MoviesView.vue"),
   },
   {
-    path: "/movies/:id",
+    path: "/:category/:id",
     name: "MovieDetails",
     component: () => import("@/views/MovieDetails.vue"),
-    props: true,
   },
 
   // Not found 404

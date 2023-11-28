@@ -5,17 +5,25 @@
 
       <nav class="flex items-center justify-center gap-2">
         <router-link :to="{ name: 'Home' }">Home</router-link>
-        <router-link :to="{ name: 'Movies' }">Movies</router-link>
+        <router-link :to="{ name: 'Movies', params: { category: movies } }"
+          >Movies</router-link
+        >
       </nav>
     </div>
   </header>
 </template>
 
 <script>
+import { CATEGORIES } from "@/constants/categories";
 import AppLogo from "@/components/common/Logo.vue";
+
 export default {
   name: "AppHeader",
   components: { AppLogo },
+  setup() {
+    const { movies } = CATEGORIES;
+    return { movies };
+  },
 };
 </script>
 

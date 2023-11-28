@@ -1,29 +1,38 @@
-# vue-project
+## 🚀 "Filmoteka"
 
-## Project setup
+Filmoteka is a web application that allows users to search for movies using TheMovieDB API.
 
-```
-npm install
-```
+## 🚀 Features
 
-### Compiles and hot-reloads for development
+- Search movies by genre and year with pagination.
 
-```
-npm run serve
-```
+API Documentation:
+[TMDB API Documentation](https://developer.themoviedb.org/docs)
 
-### Compiles and minifies for production
+## 🛠 Technologies
 
-```
-npm run build
-```
+- Vue
+- Vue Router
+- Axios
+- Tailwindcss
+- ESLint and Prettier
 
-### Lints and fixes files
+## Getting Started
 
-```
-npm run lint
-```
+# Installation
 
-### Customize configuration
+- Clone the repository and install the dependencies:
 
-See [Configuration Reference](https://cli.vuejs.org/config/).
+        git clone https://github.com/VVr17/movie-app.git
+        cd movie-app
+        npm install
+
+# Usage
+
+- To start the development server:
+
+            npm run serve
+
+- To build for production:
+
+            npm run build

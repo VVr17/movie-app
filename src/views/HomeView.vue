@@ -1,8 +1,15 @@
 <template>
-  <div class="section">
-    <div class="container">
-      <h1 class="title-primary">Home page</h1>
-      <p>will be the list of genres -> go to movies list page</p>
-    </div>
-  </div>
+  <AppHero />
+  <GenresSection />
 </template>
+
+<script>
+import AppHero from "@/components/home/AppHero.vue";
+import GenresSection from "@/components/home/genres/GenresSection.vue";
+
+export default {
+  components: { GenresSection, AppHero },
+};
+</script>
+
+<style lang="scss" scoped></style>
