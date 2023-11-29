@@ -7,7 +7,7 @@
       :key="item.id"
       class="flex transition duration-300 border border-transparent hover:border-gray hover:text-yellow-light"
     >
-      <ItemCard :item="item" />
+      <ItemCard :item="item" :category="category" />
     </li>
   </ul>
 </template>
@@ -19,6 +19,7 @@ export default {
   name: "ItemList",
   props: {
     items: { type: Array },
+    category: { type: String },
   },
   components: { ItemCard },
 };

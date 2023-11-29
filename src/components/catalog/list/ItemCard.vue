@@ -3,7 +3,7 @@
     <div class="flex flex-col flex-grow p-2">
       <div class="mb-2 tab:mb-4">
         <router-link
-          :to="{ name: 'MovieDetails', params: { id: item.id } }"
+          :to="{ name, params: { id: item.id } }"
           class="text-xs font-medium tab:text-sm flex flex-col hover:text-yellow-light focus:text-yellow-light transition duration-300 max-w-[141px] mob:max-w-[171px] tab:max-w-[189px] desk:max-w-[240px]"
         >
           <span className="first-letter:capitalize">
@@ -16,10 +16,18 @@
 </template>
 
 <script>
+import { CATEGORIES } from "@/constants";
 export default {
   name: "ItemCard",
   props: {
     item: { type: Object },
+    category: { type: String },
+  },
+  setup(props) {
+    const name =
+      props.category === CATEGORIES.movies ? "MovieDetails" : "TvDetails";
+
+    return { name };
   },
 };
 </script>

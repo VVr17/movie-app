@@ -2,7 +2,7 @@ import { api } from "@/services/axiosConfig";
 import { ref } from "vue";
 
 const useApiData = (url, params) => {
-  const data = ref([]);
+  const data = ref(null);
   const error = ref(null);
 
   const getData = async () => {

@@ -6,40 +6,24 @@
       <div
         className="flex items-center justify-between px-4 py-2.5 mb-0.5 bg-main-dark-gray"
       >
-        <button class="filter-catalog-button">
-          <p>Filter</p>
-          <i
-            class="pi pi-filter"
-            style="font-size: 1rem; color: currentColor"
-          ></i>
-        </button>
-
-        <div className="text-base text-right bg-main-dark-gray">
-          <div className="relative flex ml-auto w-fit">
-            <button
-              type="button"
-              class="relative flex items-center justify-between gap-2 px-4 py-3 text-yellow-light"
-            >
-              <span>Sort by</span>
-              <i
-                class="pi pi-angle-down"
-                style="font-size: 1rem; color: currentColor"
-              ></i>
-              <i
-                class="pi pi-angle-up"
-                style="font-size: 1rem; color: currentColor"
-              ></i>
-            </button>
-          </div>
-        </div>
+        <FilterButton @openFilter="openFilter" />
+        <FilterSort />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import FilterButton from "./FilterButton.vue";
+import FilterSort from "./FilterSort.vue";
+
 export default {
   name: "FilterBar",
+  components: { FilterButton, FilterSort },
+  setup(props, context) {
+    const openFilter = () => context.emit("openFilter");
+    return { openFilter };
+  },
 };
 </script>
 
@@ -57,14 +41,5 @@ export default {
     rgba(72, 82, 78, 0.15) 320.625deg,
     rgba(72, 82, 78, 0) 345.8621406555176deg
   );
-}
-
-.filter-catalog-button {
-  @apply flex items-center justify-center gap-4 text-base transition duration-300;
-}
-
-.filter-catalog-button:hover,
-.filter-catalog-button:focus {
-  @apply text-accent-green;
 }
 </style>

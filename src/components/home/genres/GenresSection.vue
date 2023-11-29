@@ -25,7 +25,7 @@
 
 <script>
 import { GENRES_MOVIE_URL, GENRES_TV_URL } from "@/constants/urls";
-import { CATEGORIES } from "@/constants/categories";
+import { CATEGORIES } from "@/constants";
 import useApiData from "@/composables/api/useApiData";
 
 import GenresList from "./GenresList.vue";
@@ -33,7 +33,7 @@ import GenresTitle from "./GenresTitle.vue";
 
 export default {
   name: "GenresSection",
-  setup() {
+  async setup() {
     const { movies, tv } = CATEGORIES;
     const {
       data: movieGenres,
@@ -46,8 +46,8 @@ export default {
       getData: getTvGenres,
     } = useApiData(GENRES_TV_URL);
 
-    getMovieGenres();
-    getTvGenres();
+    await getMovieGenres();
+    await getTvGenres();
 
     return { movieGenres, tvGenres, tvError, movieError, movies, tv };
   },

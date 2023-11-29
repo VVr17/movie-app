@@ -7,8 +7,7 @@
     >
       <router-link
         :to="{
-          name: 'Movies',
-          params: { category },
+          name,
           query: { genre: genre.id },
         }"
         class="flex flex-col items-center w-full h-full p-2 rounded-lg cursor-pointer bg-filter-dark-gray rounded-min"
@@ -24,11 +23,18 @@
 </template>
 
 <script>
+import { CATEGORIES } from "@/constants";
 export default {
   name: "GenresList",
   props: {
     genres: { type: Array },
     category: { type: String },
+  },
+  setup(props) {
+    const { movies } = CATEGORIES;
+    const name = props.category === movies ? "Movies" : "Tv";
+
+    return { name };
   },
 };
 </script>

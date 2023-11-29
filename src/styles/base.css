@@ -5,6 +5,10 @@
     @apply flex flex-col min-h-screen font-sans text-sm text-white desk:text-base bg-main-dark-gray;
   }
 
+  body.backdropIsOpen {
+    overflow: hidden;
+  }
+
   .title-primary {
     @apply text-3.5xl leading-9 tab:text-4.5xl tab:leading-11 desk:text-5xl desk:leading-12 font-normal text-accent-green;
   }
@@ -21,5 +25,24 @@
     @apply w-full mx-auto px-4
     mob:w-[375px] mob:px-4
     tab:w-[834px] tab:px-8;
+  }
+
+  .after-gray-line {
+    @apply after:content-[''] after:absolute after:bottom-0
+      after:block after:w-full after:h-1 after:bg-gradient-to-r 
+      after:from-transparent after:via-gray after:to-transparent;
+  }
+
+  /* Style the number input to hide the number change arrows */
+  input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+    appearance: textfield; /* Other modern browsers */
+  }
+
+  /* Reset the spinner buttons in Firefox */
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 }
