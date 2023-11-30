@@ -1,6 +1,6 @@
 <template>
   <Suspense>
-    <CatalogSection :category="movies" />
+    <CatalogSection :category="tv" />
     <template #fallback><LoadingSpinner /></template>
   </Suspense>
 </template>
@@ -13,8 +13,8 @@ import LoadingSpinner from "@/components/common/LoadingSpinner.vue";
 
 export default {
   setup() {
-    const { movies } = CATEGORIES;
-    return { movies };
+    const { tv } = CATEGORIES;
+    return { tv };
   },
   components: { CatalogSection, LoadingSpinner, Suspense },
 };

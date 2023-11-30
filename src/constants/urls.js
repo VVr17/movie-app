@@ -10,14 +10,16 @@ export const TRENDING_TV_URL = "trending/tv/week";
 export const SEARCH_MOVIE_BY_TITLE = "search/movie";
 export const SEARCH_TV_BY_TITLE = "search/tv";
 
-// Search by filters
-export const GET_MOVIE_DISCOVER_URL = "discover/movie";
-export const GET_TV_DISCOVER_URL = "discover/tv";
+// Search by query
+export const MOVIE_DISCOVER_URL = "discover/movie";
+export const TV_DISCOVER_URL = "discover/tv";
 
-// Get details
+// Details
 export const MOVIE_URL = "movie/";
 export const TV_URL = "tv/";
 
 export const CREDIT_URL = "credits"; // Cast // https://api.themoviedb.org/3/movie/{movieId}/credits
 export const REVIEWS_URL = "reviews"; // Reviews
-export const SEASONS_URL = "season"; // /tv/{series_id}/season/{season_number}
+export const SEASONS_URL = "season"; // Seasons /tv/{series_id}/season/{season_number}
+
+export const IMAGE_BASE_URL = `https://image.tmdb.org/t/p/w500`;

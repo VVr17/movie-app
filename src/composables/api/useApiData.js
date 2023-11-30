@@ -1,11 +1,11 @@
 import { api } from "@/services/axiosConfig";
 import { ref } from "vue";
 
-const useApiData = (url, params) => {
-  const data = ref([]);
+const useApiData = () => {
+  const data = ref(null);
   const error = ref(null);
 
-  const getData = async () => {
+  const getData = async (url, params) => {
     try {
       const response = await api.get(url, { params });
       data.value = response.data;

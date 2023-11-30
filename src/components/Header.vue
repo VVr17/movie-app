@@ -3,26 +3,29 @@
     <div class="container flex justify-between">
       <AppLogo />
 
-      <nav class="flex items-center justify-center gap-2">
-        <router-link :to="{ name: 'Home' }">Home</router-link>
-        <router-link :to="{ name: 'Movies', params: { category: movies } }"
-          >Movies</router-link
+      <nav class="flex items-center justify-center gap-3">
+        <router-link
+          v-for="item in navigation"
+          :key="item.name"
+          :to="{ name: item.name }"
         >
+          {{ item.label }}
+        </router-link>
       </nav>
     </div>
   </header>
 </template>
 
 <script>
-import { CATEGORIES } from "@/constants/categories";
+import { CATEGORIES, navigation } from "@/constants";
 import AppLogo from "@/components/common/Logo.vue";
 
 export default {
   name: "AppHeader",
   components: { AppLogo },
   setup() {
-    const { movies } = CATEGORIES;
-    return { movies };
+    const { movies, tv } = CATEGORIES;
+    return { movies, tv, navigation };
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <Suspense>
-    <DetailsSection :category="movies" :url="MOVIE_URL" />
+    <DetailsSection :category="tv" :url="TV_URL" />
     <template #fallback><LoadingSpinner /></template>
   </Suspense>
 </template>
@@ -8,15 +8,15 @@
 <script>
 import { Suspense } from "vue";
 
-import { MOVIE_URL, CATEGORIES } from "@/constants";
+import { CATEGORIES, TV_URL } from "@/constants";
 import DetailsSection from "@/components/details/DetailsSection.vue";
 import LoadingSpinner from "@/components/common/LoadingSpinner.vue";
 
 export default {
-  name: "MovieDetails",
+  name: "TvDetails",
   setup() {
-    const { movies } = CATEGORIES;
-    return { movies, MOVIE_URL };
+    const { tv } = CATEGORIES;
+    return { tv, TV_URL };
   },
   components: { DetailsSection, LoadingSpinner, Suspense },
 };
