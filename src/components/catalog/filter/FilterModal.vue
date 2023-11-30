@@ -1,7 +1,7 @@
 <template>
   <div class="px-4 py-3 tab:px-6 tab:py-4 desk:py-6">
     <FilterHeader @closeFilter="closeFilter" />
-    <FilterForm :category="category" />
+    <FilterForm :category="category" @closeFilter="closeFilter" />
   </div>
 </template>
 

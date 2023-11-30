@@ -1,7 +1,8 @@
-import { CATEGORIES } from "./categories";
-import { SORT_TYPES } from "./sortTypes";
-import { navigation } from "./navigation";
-import {
+export { CATEGORIES } from "./categories";
+export { defaultFilter } from "./filter";
+export { navigation } from "./navigation";
+export { SORT_TYPES } from "./sortTypes";
+export {
   GENRES_MOVIE_URL,
   GENRES_TV_URL,
   TRENDING_MOVIE_URL,
@@ -17,23 +18,3 @@ import {
   SEASONS_URL,
   IMAGE_BASE_URL,
 } from "./urls";
-
-export {
-  CATEGORIES,
-  navigation,
-  GENRES_MOVIE_URL,
-  GENRES_TV_URL,
-  TRENDING_MOVIE_URL,
-  TRENDING_TV_URL,
-  SEARCH_MOVIE_BY_TITLE,
-  SEARCH_TV_BY_TITLE,
-  MOVIE_DISCOVER_URL,
-  TV_DISCOVER_URL,
-  MOVIE_URL,
-  TV_URL,
-  CREDIT_URL,
-  REVIEWS_URL,
-  SEASONS_URL,
-  IMAGE_BASE_URL,
-  SORT_TYPES,
-};

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex mb-3 tab:mb-4 desk:mb-6 items-center justify-between w-full max-w-[375px] tab:max-w-[418px] desk:max-w-[548px] bg-main-dark-gray border-b-card-dark-gray border-b border-l border-l-filter-dark-gray"
+    class="flex pb-3 tab:pb-4 desk:pb-6 items-center justify-between w-full max-w-[375px] tab:max-w-[418px] desk:max-w-[548px] bg-main-dark-gray border-b-card-dark-gray border-b border-l border-l-filter-dark-gray"
   >
     <h2 class="text-2xl title-secondary font-play tab:text-3.5xl">Filter</h2>
     <button

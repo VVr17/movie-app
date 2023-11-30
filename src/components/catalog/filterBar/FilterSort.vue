@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import { computed, ref } from "vue";
+import { computed, ref, watchEffect } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getSortTypes } from "@/utils";
 
@@ -68,6 +68,10 @@ export default {
 
     const selectedLabel = computed(() => {
       return sortTypes.find(({ value }) => sort.value === value).label;
+    });
+
+    watchEffect(async () => {
+      sort.value = route.query.sort || sortTypes[0].value;
     });
 
     const toggleSortMenu = () => {

@@ -1,6 +1,6 @@
 <template>
   <Suspense>
-    <DetailsSection :category="tv" :url="MOVIE_URL" />
+    <DetailsSection :category="movies" :url="MOVIE_URL" />
     <template #fallback><LoadingSpinner /></template>
   </Suspense>
 </template>
@@ -15,8 +15,8 @@ import LoadingSpinner from "@/components/common/LoadingSpinner.vue";
 export default {
   name: "MovieDetails",
   setup() {
-    const { tv } = CATEGORIES;
-    return { tv, MOVIE_URL };
+    const { movies } = CATEGORIES;
+    return { movies, MOVIE_URL };
   },
   components: { DetailsSection, LoadingSpinner, Suspense },
 };

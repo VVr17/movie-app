@@ -1,31 +1,20 @@
 <template>
   <Suspense>
-    <CatalogSection :category="movies" :url="url" />
+    <CatalogSection :category="movies" />
     <template #fallback><LoadingSpinner /></template>
   </Suspense>
 </template>
 
 <script>
 import { Suspense } from "vue";
-import { useRoute } from "vue-router";
-
-import {
-  CATEGORIES,
-  MOVIE_DISCOVER_URL,
-  TRENDING_MOVIE_URL,
-} from "@/constants";
-
+import { CATEGORIES } from "@/constants";
 import CatalogSection from "@/components/catalog/CatalogSection.vue";
 import LoadingSpinner from "@/components/common/LoadingSpinner.vue";
 
 export default {
   setup() {
-    const { query } = useRoute();
     const { movies } = CATEGORIES;
-    const genre = query.genre;
-    const url = genre ? MOVIE_DISCOVER_URL : TRENDING_MOVIE_URL;
-
-    return { movies, url };
+    return { movies };
   },
   components: { CatalogSection, LoadingSpinner, Suspense },
 };

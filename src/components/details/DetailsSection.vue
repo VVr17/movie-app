@@ -26,8 +26,8 @@ export default {
     const { params } = useRoute();
     const id = params.id;
 
-    const { data, error, getData } = useApiData(`${props.url}${id}`);
-    await getData();
+    const { data, error, getData } = useApiData();
+    await getData(`${props.url}${id}`);
     return { data, error };
   },
   components: { BackButton, DetailedCard },

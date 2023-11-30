@@ -12,6 +12,7 @@
           type="checkbox"
           class="absolute transition duration-300 opacity-0"
           :value="option.id"
+          :checked="isSelected(option.id)"
           v-on:input="handleChange($event.target)"
         />
         <span>{{ option.name }}</span>
@@ -38,7 +39,6 @@ export default {
   },
 
   setup(props, { emit }) {
-    console.log("props.modelValue", props.modelValue);
     const isSelected = (id) => props.modelValue.includes(id.toString());
 
     const handleChange = ({ checked, value }) => {
@@ -57,33 +57,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>
-
-<!--     <input
-          type="checkbox"
-          v-model="selectedData"
-          :value="option.id"
-          @change="handleChange(option.id)"
-          class="absolute transition duration-300 opacity-0"
-        /> -->
-
-<!-- 
-<script>
-import { ref } from "vue";
-
-export default {
-  name: "OptionList",
-  props: { options: { type: Array } },
-  setup(props, context) {
-    const selectedData = ref([]);
-    const isSelected = (id) => selectedData.value.includes(id);
-
-    const handleChange = () => {
-      context.emit("checkboxChange", selectedData.value);
-    };
-
-    return { selectedData, isSelected, handleChange };
-  },
-};
-</script> -->

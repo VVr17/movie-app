@@ -8,7 +8,7 @@
       <router-link
         :to="{
           name,
-          query: { genre: genre.id },
+          query: { genres: genre.id },
         }"
         class="flex flex-col items-center w-full h-full p-2 rounded-lg cursor-pointer bg-filter-dark-gray rounded-min"
       >

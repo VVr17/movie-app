@@ -39,15 +39,15 @@ export default {
       data: movieGenres,
       error: movieError,
       getData: getMovieGenres,
-    } = useApiData(GENRES_MOVIE_URL);
+    } = useApiData();
     const {
       data: tvGenres,
       error: tvError,
       getData: getTvGenres,
-    } = useApiData(GENRES_TV_URL);
+    } = useApiData();
 
-    await getMovieGenres();
-    await getTvGenres();
+    await getMovieGenres(GENRES_MOVIE_URL);
+    await getTvGenres(GENRES_TV_URL);
 
     return { movieGenres, tvGenres, tvError, movieError, movies, tv };
   },

@@ -32,35 +32,74 @@
 </template>
 
 <script>
+import { Transition, ref, watchEffect } from "vue";
 import { useRoute } from "vue-router";
+import isEmpty from "lodash/isEmpty";
 
 import useApiData from "@/composables/api/useApiData";
 import AppBackdrop from "@/components/common/Backdrop.vue";
 import BackButton from "@/components/common/BackButton.vue";
-import ItemList from "@/components/catalog/list/ItemList.vue";
 import FilterBar from "@/components/catalog/filterBar/FilterBar.vue";
-import { Transition, ref } from "vue";
 import FilterModal from "./filter/FilterModal.vue";
+import ItemList from "@/components/catalog/list/ItemList.vue";
+
+import {
+  CATEGORIES,
+  MOVIE_DISCOVER_URL,
+  TRENDING_MOVIE_URL,
+  TRENDING_TV_URL,
+  TV_DISCOVER_URL,
+} from "@/constants";
 
 export default {
   name: "CatalogSection",
   props: {
     category: { type: String },
-    url: { type: String },
   },
   async setup(props) {
-    const { query } = useRoute();
-    const genre = query.genre;
     const filterIsOpen = ref(false);
+    const route = useRoute();
+    const { data, error, getData } = useApiData();
 
-    const searchParams = {
-      page: "1",
-      sort_by: "popularity.desc",
-    };
-    if (genre) searchParams.with_genres = genre;
+    watchEffect(async () => {
+      const searchParams = ref({});
+      const url = ref(
+        isEmpty(route.query) && props.category === CATEGORIES.tv
+          ? TRENDING_TV_URL
+          : isEmpty(route.query) && props.category === CATEGORIES.movies
+          ? TRENDING_MOVIE_URL
+          : props.category === CATEGORIES.tv
+          ? TV_DISCOVER_URL
+          : MOVIE_DISCOVER_URL
+      );
 
-    const { data, error, getData } = useApiData(props.url, searchParams);
-    await getData();
+      const { sort, genres, minYear, maxYear } = route.query;
+      searchParams.value = {
+        sort_by: sort ? sort : "popularity.desc",
+      };
+
+      if (genres) {
+        searchParams.value.with_genres = Array.isArray(genres)
+          ? genres.join("|")
+          : genres;
+      }
+      if (minYear) {
+        const key =
+          props.category === CATEGORIES.movies
+            ? "primary_release_date.gte"
+            : "first_air_date.gte";
+        searchParams.value[key] = `${+minYear}-01-01`;
+      }
+      if (maxYear) {
+        const key =
+          props.category === CATEGORIES.movies
+            ? "primary_release_date.lte"
+            : "first_air_date.lte";
+        searchParams.value[key] = `${+maxYear}-12-31`;
+      }
+
+      await getData(url.value, searchParams.value);
+    });
 
     const toggleFilterIsOpen = () => {
       if (filterIsOpen.value) {
@@ -68,7 +107,6 @@ export default {
       } else {
         document.body.classList.add("backdropIsOpen");
       }
-
       filterIsOpen.value = !filterIsOpen.value;
     };
 
