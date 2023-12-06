@@ -2,7 +2,7 @@
   <div class="section">
     <div class="container">
       <BackButton />
-      <DetailedCard v-if="data" :movie="data" />
+      <DetailedCard v-if="data" :movie="data" :category="category" />
       <h2 v-if="error" class="text-xl title-secondary">
         There is no movie found
       </h2>
@@ -14,13 +14,12 @@
 import { useRoute } from "vue-router";
 import useApiData from "@/composables/api/useApiData";
 import BackButton from "@/components/common/BackButton.vue";
-import DetailedCard from "./card/DetailedCard.vue";
+import DetailedCard from "./DetailedCard.vue";
 
 export default {
   props: {
-    url: {
-      type: String,
-    },
+    url: { type: String },
+    category: { type: String },
   },
   async setup(props) {
     const { params } = useRoute();
@@ -33,5 +32,3 @@ export default {
   components: { BackButton, DetailedCard },
 };
 </script>
-
-<style lang="scss" scoped></style>
