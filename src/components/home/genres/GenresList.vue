@@ -1,5 +1,5 @@
 <template>
-  <ul class="grid grid-cols-2 gap-3 tab:grid-cols-4 desk:grid-cols-5">
+  <ul class="grid grid-cols-1 gap-3 tab:grid-cols-2 desk:grid-cols-3">
     <li
       class="group rounded-lg cursor-pointer p-0.5 duration-300 ease-in-out bg-gray hover:bg-accent-green group"
       v-for="genre in genres"

@@ -3,6 +3,7 @@
     <div class="container">
       <BackButton />
       <h1 class="mb-6 capitalize title-primary">{{ category }}</h1>
+      <SearchForm />
       <FilterBar @openFilter="toggleFilterIsOpen" />
       <ItemList
         v-if="data?.results?.length"
@@ -53,6 +54,8 @@ import {
   TV_DISCOVER_URL,
   MAX_TOTAL_PAGES,
   ITEMS_PER_PAGE,
+  SEARCH_TV_BY_TITLE,
+  SEARCH_MOVIE_BY_TITLE,
 } from "@/constants";
 import AppBackdrop from "@/components/common/Backdrop.vue";
 import BackButton from "@/components/common/BackButton.vue";
@@ -60,6 +63,7 @@ import FilterBar from "@/components/catalog/filterBar/FilterBar.vue";
 import FilterModal from "./filter/FilterModal.vue";
 import ItemList from "@/components/catalog/list/ItemList.vue";
 import ListPagination from "@/components/common/Pagination.vue";
+import SearchForm from "./search/SearchForm.vue";
 import useApiData from "@/composables/api/useApiData";
 
 export default {
@@ -72,23 +76,34 @@ export default {
     const route = useRoute();
     const { data, error, getData } = useApiData();
 
+    //TODO: Add condition -- if There is search in query change URL
     watchEffect(async () => {
+      const { sort, genres, minYear, maxYear, page, search } = route.query;
       const searchParams = ref({});
+
       const url = ref(
         isEmpty(route.query) && props.category === CATEGORIES.tv
           ? TRENDING_TV_URL
           : isEmpty(route.query) && props.category === CATEGORIES.movies
           ? TRENDING_MOVIE_URL
+          : props.category === CATEGORIES.tv && search
+          ? SEARCH_TV_BY_TITLE
+          : props.category === CATEGORIES.movies && search
+          ? SEARCH_MOVIE_BY_TITLE
           : props.category === CATEGORIES.tv
           ? TV_DISCOVER_URL
           : MOVIE_DISCOVER_URL
       );
 
-      const { sort, genres, minYear, maxYear, page } = route.query;
+      // There is no sort types in SEARCH - should be Default
       searchParams.value = {
         page: page ? page : FIRST_PAGE,
         sort_by: sort ? sort : "popularity.desc",
       };
+
+      if (search) {
+        searchParams.value.query = search;
+      }
 
       if (genres) {
         searchParams.value.with_genres = Array.isArray(genres)
@@ -140,6 +155,7 @@ export default {
     Transition,
     FilterModal,
     ListPagination,
+    SearchForm,
   },
 };
 </script>

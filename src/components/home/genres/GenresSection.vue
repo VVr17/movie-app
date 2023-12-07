@@ -1,8 +1,10 @@
 <template>
   <div class="section">
     <div class="container">
-      <ul class="flex flex-col gap-6 tab:gap-8 desk:gap-10">
-        <li>
+      <ul class="grid grid-cols-2 gap-4 tab:gap-5 desk:gap-6">
+        <li
+          class="relative after:content-[' '] after:absolute after:top-0 after:block after:w-[1px] after:h-full after:-right-2 after:tab:-right-2.5 after:desk:-right-3 after:bg-dark-gray"
+        >
           <GenresTitle title="Movies" :category="movies" />
           <GenresList
             v-if="movieGenres?.genres?.length"
