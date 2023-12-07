@@ -9,6 +9,14 @@
         :items="data.results"
         :category="category"
       />
+      <ListPagination
+        v-if="data?.total_pages > FIRST_PAGE"
+        :totalResults="
+          data?.total_pages <= MAX_TOTAL_PAGES
+            ? data?.total_results
+            : MAX_TOTAL_PAGES * ITEMS_PER_PAGE
+        "
+      />
       <h2
         v-if="data?.results && !data?.results?.length"
         class="text-xl title-secondary"
@@ -36,20 +44,23 @@ import { Transition, ref, watchEffect } from "vue";
 import { useRoute } from "vue-router";
 import isEmpty from "lodash/isEmpty";
 
-import useApiData from "@/composables/api/useApiData";
+import {
+  CATEGORIES,
+  FIRST_PAGE,
+  MOVIE_DISCOVER_URL,
+  TRENDING_MOVIE_URL,
+  TRENDING_TV_URL,
+  TV_DISCOVER_URL,
+  MAX_TOTAL_PAGES,
+  ITEMS_PER_PAGE,
+} from "@/constants";
 import AppBackdrop from "@/components/common/Backdrop.vue";
 import BackButton from "@/components/common/BackButton.vue";
 import FilterBar from "@/components/catalog/filterBar/FilterBar.vue";
 import FilterModal from "./filter/FilterModal.vue";
 import ItemList from "@/components/catalog/list/ItemList.vue";
-
-import {
-  CATEGORIES,
-  MOVIE_DISCOVER_URL,
-  TRENDING_MOVIE_URL,
-  TRENDING_TV_URL,
-  TV_DISCOVER_URL,
-} from "@/constants";
+import ListPagination from "@/components/common/Pagination.vue";
+import useApiData from "@/composables/api/useApiData";
 
 export default {
   name: "CatalogSection",
@@ -73,8 +84,9 @@ export default {
           : MOVIE_DISCOVER_URL
       );
 
-      const { sort, genres, minYear, maxYear } = route.query;
+      const { sort, genres, minYear, maxYear, page } = route.query;
       searchParams.value = {
+        page: page ? page : FIRST_PAGE,
         sort_by: sort ? sort : "popularity.desc",
       };
 
@@ -110,7 +122,15 @@ export default {
       filterIsOpen.value = !filterIsOpen.value;
     };
 
-    return { data, error, filterIsOpen, toggleFilterIsOpen };
+    return {
+      data,
+      error,
+      filterIsOpen,
+      toggleFilterIsOpen,
+      FIRST_PAGE,
+      MAX_TOTAL_PAGES,
+      ITEMS_PER_PAGE,
+    };
   },
   components: {
     BackButton,
@@ -119,6 +139,7 @@ export default {
     AppBackdrop,
     Transition,
     FilterModal,
+    ListPagination,
   },
 };
 </script>

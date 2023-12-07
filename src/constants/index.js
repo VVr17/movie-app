@@ -1,5 +1,11 @@
 export { CATEGORIES } from "./categories";
-export { defaultFilter } from "./filter";
+export {
+  defaultFilter,
+  FIRST_PAGE,
+  ITEMS_PER_PAGE,
+  MAX_PAGE_SHOWN,
+  MAX_TOTAL_PAGES,
+} from "./filter";
 export { navigation } from "./navigation";
 export { SORT_TYPES } from "./sortTypes";
 export {

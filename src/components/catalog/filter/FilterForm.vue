@@ -35,6 +35,7 @@ import useApiData from "@/composables/api/useApiData";
 import {
   CATEGORIES,
   defaultFilter,
+  FIRST_PAGE,
   GENRES_MOVIE_URL,
   GENRES_TV_URL,
 } from "@/constants";
@@ -72,7 +73,7 @@ export default {
       }
 
       // Update the query parameters and navigate
-      router.push({ query: { ...route.query, ...query } });
+      router.push({ query: { ...route.query, ...query, page: FIRST_PAGE } });
       closeFilter();
     };
 

@@ -56,6 +56,7 @@
 import { computed, ref, watchEffect } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getSortTypes } from "@/utils";
+import { FIRST_PAGE } from "@/constants";
 
 export default {
   name: "FilterSort",
@@ -70,7 +71,7 @@ export default {
       return sortTypes.find(({ value }) => sort.value === value).label;
     });
 
-    watchEffect(async () => {
+    watchEffect(() => {
       sort.value = route.query.sort || sortTypes[0].value;
     });
 
@@ -80,7 +81,9 @@ export default {
 
     const handleSortChange = () => {
       toggleSortMenu();
-      router.push({ query: { ...route.query, sort: sort.value } });
+      router.push({
+        query: { ...route.query, sort: sort.value, page: FIRST_PAGE },
+      });
     };
 
     return {
