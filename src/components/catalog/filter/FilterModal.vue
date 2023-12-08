@@ -21,5 +21,3 @@ export default {
   components: { FilterForm, FilterHeader },
 };
 </script>
-
-<style lang="scss" scoped></style>

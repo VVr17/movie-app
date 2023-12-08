@@ -1,20 +1,13 @@
 <template>
   <div class="tab:flex tab:gap-14 tab:mb-17 desk:mb-30">
-    <!-- {/* Mobile Title Render */} -->
-    <CardTitle
-      :title="movie.original_title || movie.original_name"
-      :status="movie.status"
-      styles="tab:hidden"
-    />
-    <CardImage
-      :imgSrc="imgSrc"
-      :title="movie.original_title || movie.original_name"
-    />
+    <!-- Mobile Title Render -->
+    <CardTitle :title="title" :status="movie.status" styles="tab:hidden" />
+    <CardImage :imgSrc="imgSrc" :title="title" />
 
     <div class="w-full">
       <!-- Tablet-Desktop Title render -->
       <CardTitle
-        :title="movie.original_title || movie.original_name"
+        :title="title"
         :status="movie.status"
         styles="hidden tab:block"
       />
@@ -23,26 +16,30 @@
       <ShortDescription :category="category" :movie="movie" />
     </div>
   </div>
+
   <!--  Tablet / Desktop Full info render -->
   <InfoTitle title="Overview" />
   <MovieOverview
     :category="category"
     :overview="movie.overview"
-    :genres="movie.genres.map(({ name }) => name).join(', ')"
+    :genres="genres"
   />
   <InfoTitle title="Characteristics" />
   <MovieCharacteristics :movie="movie" :category="category" />
 </template>
 
 <script>
+import { computed } from "vue";
 import { IMAGE_BASE_URL } from "@/constants";
-import CardTitle from "./components/CardTitle.vue";
-import CardImage from "./components/CardImage.vue";
-import MovieTagline from "./components/MovieTagline.vue";
-import ShortDescription from "./components/ShortDescription.vue";
-import InfoTitle from "./components/InfoTitle.vue";
-import MovieOverview from "./components/MovieOverview.vue";
-import MovieCharacteristics from "./components/MovieCharacteristics.vue";
+import {
+  CardTitle,
+  CardImage,
+  MovieTagline,
+  ShortDescription,
+  InfoTitle,
+  MovieOverview,
+  MovieCharacteristics,
+} from "./components";
 
 export default {
   name: "DetailedCard",
@@ -55,7 +52,13 @@ export default {
       ? `${IMAGE_BASE_URL}${props.movie.poster_path}`
       : null;
 
-    return { imgSrc };
+    const title = props.movie.original_title || props.movie.original_name;
+
+    const genres = computed(() => {
+      return props.movie.genres.map(({ name }) => name).join(", ");
+    });
+
+    return { imgSrc, title, genres };
   },
   components: {
     CardTitle,

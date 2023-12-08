@@ -1,22 +1,19 @@
 <template>
   <div class="flex flex-row flex-grow tab:flex-col bg-card-dark-gray">
     <div class="flex flex-col flex-grow p-2">
-      <div class="mb-2 tab:mb-4">
-        <router-link
-          :to="{ name, params: { id: item.id } }"
-          class="text-xs font-medium tab:text-sm flex flex-col hover:text-yellow-light focus:text-yellow-light transition duration-300 max-w-[141px] mob:max-w-[171px] tab:max-w-[189px] desk:max-w-[240px]"
-        >
-          <span className="first-letter:capitalize">
-            {{ item.original_title || item.original_name }}</span
-          >
-        </router-link>
-      </div>
+      <ItemImage :name="name" :id="item.id" :title="title" :imgSrc="imgSrc" />
+      <ItemTitle :name="name" :id="item.id" :title="title" />
+      <ItemGenres :genres="genres" />
     </div>
   </div>
 </template>
 
 <script>
-import { CATEGORIES } from "@/constants";
+import { computed, inject } from "vue";
+import { CATEGORIES, IMAGE_BASE_URL } from "@/constants";
+import fallback from "@/assets/images/movie-card-plug.jpg";
+import { ItemImage, ItemTitle, ItemGenres } from "./components";
+
 export default {
   name: "ItemCard",
   props: {
@@ -24,12 +21,26 @@ export default {
     category: { type: String },
   },
   setup(props) {
+    const { movieGenres, tvGenres } = inject("genres");
+
     const name =
       props.category === CATEGORIES.movies ? "MovieDetails" : "TvDetails";
+    const imgSrc = props.item?.poster_path
+      ? `${IMAGE_BASE_URL}${props.item.poster_path}`
+      : null;
+    const title = props.item.original_title || props.item.original_name;
+    const chosenGenres =
+      props.category === CATEGORIES.movies ? movieGenres : tvGenres;
 
-    return { name };
+    const genres = computed(() => {
+      return chosenGenres.value
+        .filter(({ id }) => props.item.genre_ids.includes(id))
+        .map(({ name }) => name)
+        .join(", ");
+    });
+
+    return { name, imgSrc, fallback, genres, title };
   },
+  components: { ItemImage, ItemTitle, ItemGenres },
 };
 </script>
-
-<style lang="scss" scoped></style>

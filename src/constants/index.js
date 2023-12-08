@@ -6,6 +6,7 @@ export {
   MAX_PAGE_SHOWN,
   MAX_TOTAL_PAGES,
 } from "./filter";
+export { DESCRIPTION_TYPES } from "./descriptionTypes";
 export { navigation } from "./navigation";
 export { SORT_TYPES } from "./sortTypes";
 export {

@@ -8,6 +8,7 @@
           v-for="item in navigation"
           :key="item.name"
           :to="{ name: item.name }"
+          @click="topScroll"
         >
           {{ item.label }}
         </router-link>
@@ -18,14 +19,15 @@
 
 <script>
 import { CATEGORIES, navigation } from "@/constants";
-import AppLogo from "@/components/common/Logo.vue";
+import { topScroll } from "@/utils";
+import { AppLogo } from "@/components/common";
 
 export default {
   name: "AppHeader",
   components: { AppLogo },
   setup() {
     const { movies, tv } = CATEGORIES;
-    return { movies, tv, navigation };
+    return { movies, tv, navigation, topScroll };
   },
 };
 </script>

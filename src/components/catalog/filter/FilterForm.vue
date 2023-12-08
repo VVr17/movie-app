@@ -11,8 +11,8 @@
         />
       </FilterItem>
 
-      <FilterItem title="Genres" v-if="data?.genres">
-        <OptionList :options="data.genres" v-model="formData.genres" />
+      <FilterItem title="Genres" v-if="genresFields.length">
+        <OptionList :options="genresFields" v-model="formData.genres" />
       </FilterItem>
     </ul>
 
@@ -28,17 +28,11 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { inject, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
-import useApiData from "@/composables/api/useApiData";
-import {
-  CATEGORIES,
-  defaultFilter,
-  FIRST_PAGE,
-  GENRES_MOVIE_URL,
-  GENRES_TV_URL,
-} from "@/constants";
+import { CATEGORIES, defaultFilter, FIRST_PAGE } from "@/constants";
+import { getQuery } from "@/utils";
 import FilterItem from "./FilterItem.vue";
 import OptionList from "./OptionList.vue";
 import YearFilter from "./YearFilter.vue";
@@ -51,8 +45,9 @@ export default {
   async setup(props, context) {
     const router = useRouter();
     const route = useRoute();
+    const { movieGenres, tvGenres } = inject("genres");
     const { movies } = CATEGORIES;
-    const url = props.category === movies ? GENRES_MOVIE_URL : GENRES_TV_URL;
+    const genresFields = props.category === movies ? movieGenres : tvGenres;
 
     // Initialize formData with default values
     const { genres, ...restQuery } = route.query;
@@ -61,16 +56,8 @@ export default {
       formData.value.genres = Array.isArray(genres) ? genres : [genres];
     }
 
-    const { data, getData } = useApiData();
-    await getData(url);
-
     const handleSubmit = () => {
-      const query = {};
-
-      for (const key in formData.value) {
-        const value = formData.value[key];
-        if (value) query[key] = Array.isArray(value) ? value : value.toString();
-      }
+      const query = getQuery(formData.value);
 
       // Update the query parameters and navigate
       router.push({ query: { ...route.query, ...query, page: FIRST_PAGE } });
@@ -86,7 +73,7 @@ export default {
     const closeFilter = () => context.emit("closeFilter");
 
     return {
-      data,
+      genresFields,
       formData,
       handleSubmit,
       resetFilter,
@@ -95,5 +82,3 @@ export default {
   components: { OptionList, FilterItem, YearFilter },
 };
 </script>
-
-<style lang="scss" scoped></style>

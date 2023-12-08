@@ -9,8 +9,8 @@
 import { Suspense } from "vue";
 
 import { MOVIE_URL, CATEGORIES } from "@/constants";
-import DetailsSection from "@/components/details/DetailsSection.vue";
-import LoadingSpinner from "@/components/common/LoadingSpinner.vue";
+import { LoadingSpinner } from "@/components/common";
+import DetailsSection from "@/components/details";
 
 export default {
   name: "MovieDetails",

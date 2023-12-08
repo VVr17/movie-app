@@ -23,7 +23,7 @@
             v-if="isSelected(option.id)"
             class="pi pi-check translate-x-[4px] -translate-y-[4px]"
             style="font-size: 1.3rem; color: currentColor"
-          ></i>
+          />
         </div>
       </label>
     </li>
@@ -37,7 +37,6 @@ export default {
     options: { type: Array },
     modelValue: { type: Array },
   },
-
   setup(props, { emit }) {
     const isSelected = (id) => props.modelValue.includes(id.toString());
 

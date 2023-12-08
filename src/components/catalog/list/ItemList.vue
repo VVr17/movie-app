@@ -1,6 +1,6 @@
 <template>
   <ul
-    class="grid grid-cols-1 tab:grid-cols-3 desk:grid-cols-4 bg-main-dark-gray"
+    class="grid grid-cols-2 tab:grid-cols-5 desk:grid-cols-6 bg-main-dark-gray"
   >
     <li
       v-for="item in items"
@@ -24,5 +24,3 @@ export default {
   components: { ItemCard },
 };
 </script>
-
-<style lang="scss" scoped></style>

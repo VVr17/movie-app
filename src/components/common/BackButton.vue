@@ -17,7 +17,6 @@ export default {
   name: "BackButton",
   setup() {
     const router = useRouter();
-
     const goBack = () => router.back();
 
     return { goBack };

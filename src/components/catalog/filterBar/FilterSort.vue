@@ -6,19 +6,20 @@
         @click="toggleSortMenu"
         class="relative flex items-center justify-between gap-2 py-3 text-yellow-light"
       >
-        <span class="min-w-[200px]">{{ selectedLabel }}</span>
+        <span class="min-w-[160px]">{{ selectedLabel }}</span>
         <i
           v-show="!menuIsOpen"
           class="pi pi-angle-down"
           style="font-size: 1rem; color: currentColor"
-        ></i>
+        />
         <i
           v-show="menuIsOpen"
           class="pi pi-angle-up"
           style="font-size: 1rem; color: currentColor"
-        ></i>
+        />
       </button>
 
+      <!-- Drop-down menu with sort types -->
       <Transition name="slide-fade">
         <ul
           v-if="menuIsOpen"
@@ -55,14 +56,16 @@
 <script>
 import { computed, ref, watchEffect } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { getSortTypes } from "@/utils";
+
 import { FIRST_PAGE } from "@/constants";
+import { getSortTypes } from "@/utils";
 
 export default {
   name: "FilterSort",
   setup() {
     const router = useRouter();
     const route = useRoute();
+
     const sortTypes = getSortTypes(); // Get Sort types for sort options menu
     const sort = ref(route.query.sort || sortTypes[0].value); // Set initial value from query or default
     const menuIsOpen = ref(false);
@@ -71,14 +74,14 @@ export default {
       return sortTypes.find(({ value }) => sort.value === value).label;
     });
 
+    // Watch sort query changes
     watchEffect(() => {
       sort.value = route.query.sort || sortTypes[0].value;
     });
 
-    const toggleSortMenu = () => {
-      menuIsOpen.value = !menuIsOpen.value;
-    };
+    const toggleSortMenu = () => (menuIsOpen.value = !menuIsOpen.value);
 
+    // Update sort query and drop query page to first page
     const handleSortChange = () => {
       toggleSortMenu();
       router.push({
