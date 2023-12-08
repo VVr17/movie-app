@@ -3,12 +3,12 @@
     <input
       v-model="search"
       type="search"
-      class="w-full h-11 pl-2 pr-12 text-base outline-none bg-transparent border border-solid border-accent-green rounded-lg"
+      class="w-full pl-2 pr-12 text-base bg-transparent border border-solid rounded-lg outline-none h-11 border-accent-green"
     />
     <div class="absolute top-[4px] right-[4px] center gap-4 desk:gap-2">
       <button
         type="submit"
-        class="group w-10 h-9 flex justify-center items-center rounded-lg bg-accent-green desk:w-14"
+        class="flex items-center justify-center w-10 rounded-lg group h-9 bg-accent-green desk:w-14"
       >
         <i
           class="pi pi-search"

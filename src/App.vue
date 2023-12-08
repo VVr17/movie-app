@@ -34,4 +34,3 @@ main {
   @apply grow;
 }
 </style>
-./composables/useGenres

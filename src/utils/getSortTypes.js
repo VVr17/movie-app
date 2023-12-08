@@ -11,13 +11,18 @@ export const getSortTypes = () => {
     popularityDescending,
     releaseDateAscending,
     releaseDateDescending,
-    VoteAscending,
-    VoteDescending,
-    RevenueAscending,
-    RevenueDescending,
+    voteAscending,
+    voteDescending,
+    revenueAscending,
+    revenueDescending,
+    byDefault,
   } = SORT_TYPES;
 
   return [
+    {
+      value: byDefault,
+      label: "By default",
+    },
     {
       value: popularityAscending,
       label: "Popularity ascending",
@@ -35,19 +40,19 @@ export const getSortTypes = () => {
       label: "Release date descending",
     },
     {
-      value: VoteAscending,
+      value: voteAscending,
       label: "Vote ascending",
     },
     {
-      value: VoteDescending,
+      value: voteDescending,
       label: "Vote descending",
     },
     {
-      value: RevenueAscending,
+      value: revenueAscending,
       label: "Revenue ascending",
     },
     {
-      value: RevenueDescending,
+      value: revenueDescending,
       label: "Revenue descending",
     },
   ];

@@ -4,7 +4,8 @@
       <button
         type="button"
         @click="toggleSortMenu"
-        class="relative flex items-center justify-between gap-2 py-3 text-yellow-light"
+        :disabled="isDisabled"
+        class="relative flex items-center justify-between gap-2 py-3 text-yellow-light disabled:text-gray"
       >
         <span class="min-w-[160px]">{{ selectedLabel }}</span>
         <i
@@ -57,7 +58,7 @@
 import { computed, ref, watchEffect } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
-import { FIRST_PAGE } from "@/constants";
+import { SORT_TYPES } from "@/constants";
 import { getSortTypes } from "@/utils";
 
 export default {
@@ -73,6 +74,7 @@ export default {
     const selectedLabel = computed(() => {
       return sortTypes.find(({ value }) => sort.value === value).label;
     });
+    const isDisabled = computed(() => route.query.search); // Disable sort if there is  a search query
 
     // Watch sort query changes
     watchEffect(() => {
@@ -81,17 +83,28 @@ export default {
 
     const toggleSortMenu = () => (menuIsOpen.value = !menuIsOpen.value);
 
-    // Update sort query and drop query page to first page
+    // Update sort query
     const handleSortChange = () => {
       toggleSortMenu();
-      router.push({
-        query: { ...route.query, sort: sort.value, page: FIRST_PAGE },
-      });
+
+      const query = { ...route.query };
+
+      //  If there is sort type add type, otherwise remove sort from query params
+      if (sort.value !== SORT_TYPES.byDefault) {
+        query.sort = sort.value;
+      } else {
+        delete query.sort;
+      }
+
+      delete query.page; // Drop query page on sort type change
+
+      router.push({ query });
     };
 
     return {
       sort,
       sortTypes,
+      isDisabled,
       menuIsOpen,
       selectedLabel,
       toggleSortMenu,

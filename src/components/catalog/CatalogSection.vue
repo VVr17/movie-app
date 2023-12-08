@@ -11,12 +11,8 @@
         :category="category"
       />
       <ListPagination
-        v-if="data?.total_pages > FIRST_PAGE"
-        :totalResults="
-          data?.total_pages <= MAX_TOTAL_PAGES
-            ? data?.total_results
-            : MAX_TOTAL_PAGES * ITEMS_PER_PAGE
-        "
+        v-if="data?.total_pages > FIRST_PAGE && totalResults"
+        :totalResults="totalResults"
       />
       <h2
         v-if="data?.results && !data?.results?.length"
@@ -68,8 +64,8 @@ export default {
   },
   async setup(props) {
     const filterIsOpen = ref(false);
+    const totalResults = ref(0);
     const { data, error, isLoading, getData } = useApiData();
-
     const { url, searchParams, getUrl, getSearchParams } = useUrlSearchParams();
 
     watchEffect(async () => {
@@ -80,12 +76,21 @@ export default {
       topScroll();
     });
 
+    watchEffect(() => {
+      totalResults.value =
+        data.value?.total_pages <= MAX_TOTAL_PAGES
+          ? data.value?.total_results
+          : MAX_TOTAL_PAGES * ITEMS_PER_PAGE;
+    });
+
     const toggleFilterIsOpen = () => {
+      // Stop body scroll when filter side menu is open
       if (filterIsOpen.value) {
         document.body.classList.remove("backdropIsOpen");
       } else {
         document.body.classList.add("backdropIsOpen");
       }
+
       filterIsOpen.value = !filterIsOpen.value;
     };
 
@@ -95,6 +100,7 @@ export default {
       filterIsOpen,
       toggleFilterIsOpen,
       isLoading,
+      totalResults,
       FIRST_PAGE,
       MAX_TOTAL_PAGES,
       ITEMS_PER_PAGE,
@@ -133,5 +139,3 @@ export default {
   opacity: 0.001;
 }
 </style>
-@/composables/useApiData @/composables/api/useApiData
-@/composables/useUrlSearchParams

@@ -29,22 +29,28 @@ export const useUrlSearchParams = () => {
    * @param {string} category - The category of the movie ("movies" or "tv").
    */
   const getUrl = (category) => {
-    const { search } = route.query;
-    url.value =
-      isEmpty(route.query) && category === CATEGORIES.tv
-        ? TRENDING_TV_URL
-        : isEmpty(route.query) && category === CATEGORIES.movies
-        ? TRENDING_MOVIE_URL
-        : category === CATEGORIES.tv && search
-        ? SEARCH_TV_BY_TITLE
-        : category === CATEGORIES.movies && search
-        ? SEARCH_MOVIE_BY_TITLE
-        : category === CATEGORIES.tv
-        ? TV_DISCOVER_URL
-        : MOVIE_DISCOVER_URL;
+    switch (category) {
+      case CATEGORIES.movies:
+        url.value = isEmpty(route.query)
+          ? TRENDING_MOVIE_URL
+          : route.query.search
+          ? SEARCH_MOVIE_BY_TITLE
+          : MOVIE_DISCOVER_URL;
+        break;
+
+      case CATEGORIES.tv:
+        url.value = isEmpty(route.query)
+          ? TRENDING_TV_URL
+          : route.query.search
+          ? SEARCH_TV_BY_TITLE
+          : TV_DISCOVER_URL;
+        break;
+
+      default:
+        url.value = TRENDING_MOVIE_URL;
+    }
   };
 
-  //TODO: There is no sort types in SEARCH - should be Default
   /**
    * Constructs search parameters based on the current route's query parameters.
    *
@@ -53,10 +59,11 @@ export const useUrlSearchParams = () => {
   const getSearchParams = (category) => {
     const { sort, genres, minYear, maxYear, page, search } = route.query;
 
-    searchParams.value = {
-      page: page ? page : FIRST_PAGE,
-      sort_by: sort ? sort : "popularity.desc",
-    };
+    searchParams.value = { page: page ? page : FIRST_PAGE };
+
+    if (sort) {
+      searchParams.value.sort_by = sort;
+    }
 
     if (search) {
       searchParams.value.query = search;
@@ -67,6 +74,7 @@ export const useUrlSearchParams = () => {
         ? genres.join("|")
         : genres;
     }
+
     if (minYear) {
       const key =
         category === CATEGORIES.movies
