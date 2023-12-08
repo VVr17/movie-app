@@ -44,16 +44,16 @@ export default {
   @apply flex justify-center max-w-full w-full gap-2 py-2 mt-4 text-base transition duration-300 text-gray;
 }
 
-::v-deep .paginate-buttons {
+:deep .paginate-buttons {
   @apply w-6 h-5 flex justify-center items-center rounded-full hover:text-white transition duration-300;
 }
 
-::v-deep .active-page {
+:deep .active-page {
   @apply text-accent-green;
 }
 
-::v-deep .next-button,
-::v-deep .back-button {
+:deep .next-button,
+:deep .back-button {
   @apply hover:text-accent-green transition duration-300;
 }
 </style>
