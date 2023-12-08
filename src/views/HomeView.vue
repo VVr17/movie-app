@@ -9,9 +9,8 @@
 
 <script>
 import { Suspense } from "vue";
-import AppHero from "@/components/home/AppHero.vue";
-import GenresSection from "@/components/home/genres/GenresSection.vue";
-import LoadingSpinner from "@/components/common/LoadingSpinner.vue";
+import { AppHero, GenresSection } from "@/components/home";
+import { LoadingSpinner } from "@/components/common";
 
 export default {
   components: { GenresSection, AppHero, Suspense, LoadingSpinner },

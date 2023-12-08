@@ -12,8 +12,8 @@
 
 <script>
 import { useRoute } from "vue-router";
-import useApiData from "@/composables/api/useApiData";
-import BackButton from "@/components/common/BackButton.vue";
+import { useApiData } from "@/composables/api";
+import { BackButton } from "@/components/common";
 import DetailedCard from "./DetailedCard.vue";
 
 export default {
@@ -27,6 +27,7 @@ export default {
 
     const { data, error, getData } = useApiData();
     await getData(`${props.url}${id}`);
+
     return { data, error };
   },
   components: { BackButton, DetailedCard },

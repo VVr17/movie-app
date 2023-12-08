@@ -2,6 +2,7 @@
   <router-link
     :to="{ name: 'Home' }"
     class="flex items-center justify-center gap-2"
+    @click="topScroll"
   >
     <svg
       width="24"
@@ -72,7 +73,12 @@
 </template>
 
 <script>
+import { topScroll } from "@/utils";
+
 export default {
   name: "AppLogo",
+  setup() {
+    return { topScroll };
+  },
 };
 </script>

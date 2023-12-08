@@ -1,5 +1,10 @@
 import { SORT_TYPES } from "@/constants";
 
+/**
+ * Retrieves an array of sort types with their corresponding values and labels.
+ *
+ * @returns {Array} - An array of sort type objects, each containing a value and label.
+ */
 export const getSortTypes = () => {
   const {
     popularityAscending,

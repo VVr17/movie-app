@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="rounded-full duration-300 mb-4 ease-in-out w-auto h-[323px] tab:w-[384px] tab:h-[384px] flex justify-center items-center"
-  >
+  <router-link :to="{ name, params: { id } }" class="w-full h-auto mb-2">
     <img
       v-if="imgSrc"
       :src="imgSrc"
@@ -14,17 +12,19 @@
       :alt="title"
       class="object-contain w-full h-full"
     />
-  </div>
+  </router-link>
 </template>
 
 <script>
 import fallback from "@/assets/images/movie-card-plug.jpg";
 
 export default {
-  name: "CardImage",
+  name: "ItemImage",
   props: {
-    imgSrc: { type: String },
+    name: { type: String },
+    id: { type: Number },
     title: { type: String },
+    imgSrc: { type: String || null },
   },
   setup() {
     return { fallback };

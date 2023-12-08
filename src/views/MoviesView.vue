@@ -8,8 +8,8 @@
 <script>
 import { Suspense } from "vue";
 import { CATEGORIES } from "@/constants";
-import CatalogSection from "@/components/catalog/CatalogSection.vue";
-import LoadingSpinner from "@/components/common/LoadingSpinner.vue";
+import CatalogSection from "@/components/catalog";
+import { LoadingSpinner } from "@/components/common";
 
 export default {
   setup() {

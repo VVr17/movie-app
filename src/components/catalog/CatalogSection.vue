@@ -24,9 +24,11 @@
       >
         There is no movies / TV shows found on your request
       </h2>
+      <LoadingSpinner v-if="isLoading" />
     </div>
   </div>
 
+  <!-- Filter side menu -->
   <teleport to="#modals">
     <Transition :duration="350" name="backdrop">
       <AppBackdrop v-if="filterIsOpen" @close="toggleFilterIsOpen">
@@ -42,29 +44,22 @@
 
 <script>
 import { Transition, ref, watchEffect } from "vue";
-import { useRoute } from "vue-router";
-import isEmpty from "lodash/isEmpty";
+
+import { FIRST_PAGE, MAX_TOTAL_PAGES, ITEMS_PER_PAGE } from "@/constants";
+import { useApiData } from "@/composables/api";
+import { useUrlSearchParams } from "@/composables";
+import { topScroll } from "@/utils";
 
 import {
-  CATEGORIES,
-  FIRST_PAGE,
-  MOVIE_DISCOVER_URL,
-  TRENDING_MOVIE_URL,
-  TRENDING_TV_URL,
-  TV_DISCOVER_URL,
-  MAX_TOTAL_PAGES,
-  ITEMS_PER_PAGE,
-  SEARCH_TV_BY_TITLE,
-  SEARCH_MOVIE_BY_TITLE,
-} from "@/constants";
-import AppBackdrop from "@/components/common/Backdrop.vue";
-import BackButton from "@/components/common/BackButton.vue";
-import FilterBar from "@/components/catalog/filterBar/FilterBar.vue";
-import FilterModal from "./filter/FilterModal.vue";
-import ItemList from "@/components/catalog/list/ItemList.vue";
-import ListPagination from "@/components/common/Pagination.vue";
-import SearchForm from "./search/SearchForm.vue";
-import useApiData from "@/composables/api/useApiData";
+  AppBackdrop,
+  BackButton,
+  ListPagination,
+  LoadingSpinner,
+} from "@/components/common";
+import FilterBar from "./filterBar";
+import FilterModal from "./filter";
+import ItemList from "./list";
+import SearchForm from "./search";
 
 export default {
   name: "CatalogSection",
@@ -73,59 +68,16 @@ export default {
   },
   async setup(props) {
     const filterIsOpen = ref(false);
-    const route = useRoute();
-    const { data, error, getData } = useApiData();
+    const { data, error, isLoading, getData } = useApiData();
 
-    //TODO: Add condition -- if There is search in query change URL
+    const { url, searchParams, getUrl, getSearchParams } = useUrlSearchParams();
+
     watchEffect(async () => {
-      const { sort, genres, minYear, maxYear, page, search } = route.query;
-      const searchParams = ref({});
-
-      const url = ref(
-        isEmpty(route.query) && props.category === CATEGORIES.tv
-          ? TRENDING_TV_URL
-          : isEmpty(route.query) && props.category === CATEGORIES.movies
-          ? TRENDING_MOVIE_URL
-          : props.category === CATEGORIES.tv && search
-          ? SEARCH_TV_BY_TITLE
-          : props.category === CATEGORIES.movies && search
-          ? SEARCH_MOVIE_BY_TITLE
-          : props.category === CATEGORIES.tv
-          ? TV_DISCOVER_URL
-          : MOVIE_DISCOVER_URL
-      );
-
-      // There is no sort types in SEARCH - should be Default
-      searchParams.value = {
-        page: page ? page : FIRST_PAGE,
-        sort_by: sort ? sort : "popularity.desc",
-      };
-
-      if (search) {
-        searchParams.value.query = search;
-      }
-
-      if (genres) {
-        searchParams.value.with_genres = Array.isArray(genres)
-          ? genres.join("|")
-          : genres;
-      }
-      if (minYear) {
-        const key =
-          props.category === CATEGORIES.movies
-            ? "primary_release_date.gte"
-            : "first_air_date.gte";
-        searchParams.value[key] = `${+minYear}-01-01`;
-      }
-      if (maxYear) {
-        const key =
-          props.category === CATEGORIES.movies
-            ? "primary_release_date.lte"
-            : "first_air_date.lte";
-        searchParams.value[key] = `${+maxYear}-12-31`;
-      }
+      getUrl(props.category);
+      getSearchParams(props.category);
 
       await getData(url.value, searchParams.value);
+      topScroll();
     });
 
     const toggleFilterIsOpen = () => {
@@ -142,6 +94,7 @@ export default {
       error,
       filterIsOpen,
       toggleFilterIsOpen,
+      isLoading,
       FIRST_PAGE,
       MAX_TOTAL_PAGES,
       ITEMS_PER_PAGE,
@@ -151,6 +104,7 @@ export default {
     BackButton,
     ItemList,
     FilterBar,
+    LoadingSpinner,
     AppBackdrop,
     Transition,
     FilterModal,
@@ -179,3 +133,5 @@ export default {
   opacity: 0.001;
 }
 </style>
+@/composables/useApiData @/composables/api/useApiData
+@/composables/useUrlSearchParams

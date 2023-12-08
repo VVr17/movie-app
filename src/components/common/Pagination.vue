@@ -21,8 +21,11 @@ export default {
   setup() {
     const router = useRouter();
     const route = useRoute();
-    const currentPage = ref(+route.query.page || FIRST_PAGE); // Set initial value from query or default
 
+    // Set initial value from query or default
+    const currentPage = ref(+route.query.page || FIRST_PAGE);
+
+    // Watch current page changes
     watchEffect(() => {
       currentPage.value = +route.query.page || FIRST_PAGE;
     });

@@ -9,8 +9,8 @@
 import { Suspense } from "vue";
 
 import { CATEGORIES, TV_URL } from "@/constants";
-import DetailsSection from "@/components/details/DetailsSection.vue";
-import LoadingSpinner from "@/components/common/LoadingSpinner.vue";
+import DetailsSection from "@/components/details";
+import { LoadingSpinner } from "@/components/common";
 
 export default {
   name: "TvDetails",

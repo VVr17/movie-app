@@ -7,16 +7,16 @@
         >
           <GenresTitle title="Movies" :category="movies" />
           <GenresList
-            v-if="movieGenres?.genres?.length"
-            :genres="movieGenres?.genres"
+            v-if="movieGenres.length"
+            :genres="movieGenres"
             :category="movies"
           />
         </li>
         <li>
           <GenresTitle title="TV" :category="tv" />
           <GenresList
-            v-if="tvGenres?.genres?.length"
-            :genres="tvGenres?.genres"
+            v-if="tvGenres.length"
+            :genres="tvGenres"
             :category="tv"
           />
         </li>
@@ -26,32 +26,19 @@
 </template>
 
 <script>
-import { GENRES_MOVIE_URL, GENRES_TV_URL } from "@/constants/urls";
+import { inject } from "vue";
 import { CATEGORIES } from "@/constants";
-import useApiData from "@/composables/api/useApiData";
 
 import GenresList from "./GenresList.vue";
 import GenresTitle from "./GenresTitle.vue";
 
 export default {
   name: "GenresSection",
-  async setup() {
+  setup() {
     const { movies, tv } = CATEGORIES;
-    const {
-      data: movieGenres,
-      error: movieError,
-      getData: getMovieGenres,
-    } = useApiData();
-    const {
-      data: tvGenres,
-      error: tvError,
-      getData: getTvGenres,
-    } = useApiData();
+    const { movieGenres, tvGenres } = inject("genres");
 
-    await getMovieGenres(GENRES_MOVIE_URL);
-    await getTvGenres(GENRES_TV_URL);
-
-    return { movieGenres, tvGenres, tvError, movieError, movies, tv };
+    return { movieGenres, tvGenres, movies, tv };
   },
   components: { GenresTitle, GenresList },
 };

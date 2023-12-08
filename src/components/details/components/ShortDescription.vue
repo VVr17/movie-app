@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import { computed } from "vue";
-import { CATEGORIES } from "@/constants";
+import { useDescriptionFields } from "@/composables";
+import { DESCRIPTION_TYPES } from "@/constants";
 
 export default {
   name: "ShortDescription",
@@ -24,38 +24,13 @@ export default {
     movie: { type: Object },
   },
   setup(props) {
-    const descriptionFields = computed(() => {
-      if (props.category === CATEGORIES.movies) {
-        return [
-          { title: "Release date: ", value: props.movie.release_date },
-          { title: "Budget: ", value: `${props.movie.budget / 1_000_000} mln` },
-          {
-            title: "Revenue: ",
-            value: `${props.movie.revenue / 1_000_000} mln`,
-          },
-          {
-            title: "Genres: ",
-            value: props.movie.genres.map(({ name }) => name).join(", "),
-          },
-        ];
-      }
-
-      if (props.category === CATEGORIES.tv) {
-        return [
-          { title: "First air date: ", value: props.movie.first_air_date },
-          { title: "Last air date: ", value: props.movie.last_air_date },
-          {
-            title: "Number of seasons: ",
-            value: props.movie.number_of_seasons,
-          },
-        ];
-      }
-      return [];
-    });
+    const { descriptionFields } = useDescriptionFields(
+      DESCRIPTION_TYPES.short,
+      props.category,
+      props.movie
+    );
 
     return { descriptionFields };
   },
 };
 </script>
-
-<style lang="scss" scoped></style>
