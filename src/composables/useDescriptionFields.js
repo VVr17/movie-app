@@ -6,26 +6,26 @@ import { CATEGORIES, DESCRIPTION_TYPES } from "@/constants";
  *
  * @param {string} type - The type of the description (either "short" or "detailed").
  * @param {string} category - The category of the movie (either "movies" or "tv").
- * @param {Object} movie - The movie data object containing relevant information.
+ * @param {Object} data - The  data object containing relevant information.
  * @returns {Object} - An object containing computed descriptionFields.
  */
-export const useDescriptionFields = (type, category, movie) => {
+export const useDescriptionFields = (type, category, data) => {
   const descriptionFields = computed(() => {
     // Movie-specific description fields
     if (category === CATEGORIES.movies) {
       const fields = [
-        { title: "Release date: ", value: movie.release_date },
+        { title: "Release date: ", value: data.release_date },
         {
           title: "Genres: ",
-          value: movie.genres.map(({ name }) => name).join(", "),
+          value: data.genres.map(({ name }) => name).join(", "),
         },
         {
           title: "Budget: ",
-          value: `${(movie.budget / 1_000_000).toFixed(1)} mln`, // Get budget in millions
+          value: `${(data.budget / 1_000_000).toFixed(1)} mln`, // Get budget in millions
         },
         {
           title: "Revenue: ",
-          value: `${(movie.revenue / 1_000_000).toFixed(1)} mln`, // Get revenue in millions
+          value: `${(data.revenue / 1_000_000).toFixed(1)} mln`, // Get revenue in millions
         },
       ];
 
@@ -33,28 +33,24 @@ export const useDescriptionFields = (type, category, movie) => {
         fields.push(
           {
             title: "Production companies: ",
-            value: movie.production_companies
-              .map(({ name }) => name)
-              .join(", "),
+            value: data.production_companies.map(({ name }) => name).join(", "),
           },
           {
             title: "Production countries: ",
-            value: movie.production_countries
-              .map(({ name }) => name)
-              .join(", "),
+            value: data.production_countries.map(({ name }) => name).join(", "),
           },
           {
             title: "Home page: ",
             value: "Go to movie",
-            href: movie.homepage,
+            href: data.homepage,
           },
           {
             title: "Popularity: ",
-            value: movie.popularity,
+            value: data.popularity,
           },
           {
             title: "Vote average: ",
-            value: movie.vote_average,
+            value: data.vote_average,
           }
         );
       }
@@ -65,15 +61,15 @@ export const useDescriptionFields = (type, category, movie) => {
     // TV show-specific description fields
     if (category === CATEGORIES.tv) {
       const fields = [
-        { title: "First air date: ", value: movie.first_air_date },
-        { title: "Last air date: ", value: movie.last_air_date },
+        { title: "First air date: ", value: data.first_air_date },
+        { title: "Last air date: ", value: data.last_air_date },
         {
           title: "Genres: ",
-          value: movie.genres.map(({ name }) => name).join(", "),
+          value: data.genres.map(({ name }) => name).join(", "),
         },
         {
           title: "Number of seasons: ",
-          value: movie.number_of_seasons,
+          value: data.number_of_seasons,
         },
       ];
 
@@ -81,32 +77,41 @@ export const useDescriptionFields = (type, category, movie) => {
         fields.push(
           {
             title: "Number of episodes: ",
-            value: movie.number_of_episodes,
+            value: data.number_of_episodes,
           },
           {
             title: "Created by: ",
-            value: movie.created_by.map(({ name }) => name).join(", "),
+            value: data.created_by.map(({ name }) => name).join(", "),
           },
           {
             title: "Production companies: ",
-            value: movie.production_companies
-              .map(({ name }) => name)
-              .join(", "),
+            value: data.production_companies.map(({ name }) => name).join(", "),
           },
           {
             title: "Production countries: ",
-            value: movie.production_countries
-              .map(({ name }) => name)
-              .join(", "),
+            value: data.production_countries.map(({ name }) => name).join(", "),
           },
           {
             title: "Home page: ",
             value: "Go to movie",
-            href: movie.homepage,
+            href: data.homepage,
           }
         );
       }
 
+      return fields;
+    }
+
+    if (category === CATEGORIES.people) {
+      const fields = [
+        { title: "Date of birth: ", value: data.birthday },
+        { title: "Place of birth: ", value: data.place_of_birth },
+        { title: "Department: ", value: data.known_for_department },
+      ];
+
+      if (type === DESCRIPTION_TYPES.detailed) {
+        fields.push({ title: "Popularity: ", value: data.popularity });
+      }
       return fields;
     }
 

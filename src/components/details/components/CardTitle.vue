@@ -6,7 +6,7 @@
     {{ title }}
   </h1>
   <p class="mb-10 text-gray text-xxs tab:text-sm tab:mb-15" :class="styles">
-    Status: {{ status }}
+    {{ subTitle }}
   </p>
 </template>
 
@@ -15,8 +15,8 @@ export default {
   name: "CardTitle",
   props: {
     title: { type: String },
+    subTitle: { type: String },
     styles: { type: String },
-    status: { type: String },
   },
 };
 </script>

@@ -15,7 +15,7 @@
             <a
               v-if="field.href"
               :href="field.href"
-              class="cursor-pointer underline hover:text-yellow-light focus:text-yellow-light"
+              class="underline cursor-pointer hover:text-yellow-light focus:text-yellow-light"
               target="_blank"
               rel="noopener"
               >{{ field.value }}</a
@@ -33,16 +33,16 @@ import { DESCRIPTION_TYPES } from "@/constants";
 import { useDescriptionFields } from "@/composables";
 
 export default {
-  name: "MovieCharacteristics",
+  name: "FullCharacteristics",
   props: {
-    movie: { type: Object },
+    data: { type: Object },
     category: { type: String },
   },
   setup(props) {
     const { descriptionFields } = useDescriptionFields(
       DESCRIPTION_TYPES.detailed,
       props.category,
-      props.movie
+      props.data
     );
 
     return { descriptionFields };

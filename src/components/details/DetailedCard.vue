@@ -1,64 +1,84 @@
 <template>
   <div class="tab:flex tab:gap-14 tab:mb-17 desk:mb-30">
     <!-- Mobile Title Render -->
-    <CardTitle :title="title" :status="movie.status" styles="tab:hidden" />
+    <CardTitle :title="title" :subTitle="subTitle" styles="tab:hidden" />
     <CardImage :imgSrc="imgSrc" :title="title" />
 
     <div class="w-full">
       <!-- Tablet-Desktop Title render -->
       <CardTitle
         :title="title"
-        :status="movie.status"
+        :subTitle="subTitle"
         styles="hidden tab:block"
       />
 
-      <MovieTagline :tagline="movie.tagline" />
-      <ShortDescription :category="category" :movie="movie" />
+      <MovieTagline v-if="data.tagline" :tagline="data.tagline" />
+      <ShortDescription :category="category" :data="data" />
     </div>
   </div>
 
   <!--  Tablet / Desktop Full info render -->
-  <InfoTitle title="Overview" />
-  <MovieOverview
+  <InfoTitle :title="descriptionTitle" />
+  <MainDescription
     :category="category"
-    :overview="movie.overview"
-    :genres="genres"
+    :description="description"
+    :subTitle="descriptionSubTitle"
   />
   <InfoTitle title="Characteristics" />
-  <MovieCharacteristics :movie="movie" :category="category" />
+  <FullCharacteristics :data="data" :category="category" />
 </template>
 
 <script>
-import { computed } from "vue";
-import { IMAGE_BASE_URL } from "@/constants";
+import { CATEGORIES, IMAGE_BASE_URL } from "@/constants";
 import {
   CardTitle,
   CardImage,
   MovieTagline,
   ShortDescription,
   InfoTitle,
-  MovieOverview,
-  MovieCharacteristics,
+  MainDescription,
+  FullCharacteristics,
 } from "./components";
 
 export default {
   name: "DetailedCard",
   props: {
     category: { type: String },
-    movie: { type: Object },
+    data: { type: Object },
   },
   setup(props) {
-    const imgSrc = props.movie?.poster_path
-      ? `${IMAGE_BASE_URL}${props.movie.poster_path}`
+    const imgSrc = props.data?.poster_path
+      ? `${IMAGE_BASE_URL}${props.data.poster_path}`
+      : props.data?.profile_path
+      ? `${IMAGE_BASE_URL}${props.data.profile_path}`
       : null;
 
-    const title = props.movie.original_title || props.movie.original_name;
+    const title =
+      props.data?.original_title ||
+      props.data?.original_name ||
+      props.data?.name;
 
-    const genres = computed(() => {
-      return props.movie.genres.map(({ name }) => name).join(", ");
-    });
+    const subTitle =
+      props.category === CATEGORIES.people
+        ? `Popularity: ${props.data?.popularity}`
+        : `Status: ${props.data?.status}`;
 
-    return { imgSrc, title, genres };
+    const descriptionTitle =
+      props.category === CATEGORIES.people ? "Biography" : "Overview";
+    const descriptionSubTitle =
+      props.category === CATEGORIES.people
+        ? `Known for department: ${props.data?.known_for_department}`
+        : `Genres: ${props.data?.genres.map(({ name }) => name).join(", ")}`;
+    const description = props.data?.overview || props.data?.biography;
+
+    return {
+      imgSrc,
+      title,
+      subTitle,
+      descriptionTitle,
+      description,
+      descriptionSubTitle,
+    };
   },
   components: {
     CardTitle,
@@ -66,8 +86,8 @@ export default {
     MovieTagline,
     ShortDescription,
     InfoTitle,
-    MovieOverview,
-    MovieCharacteristics,
+    MainDescription,
+    FullCharacteristics,
   },
 };
 </script>

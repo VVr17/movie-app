@@ -27,6 +27,11 @@ const routes = [
     name: "TvDetails",
     component: () => import("@/views/TvDetails.vue"),
   },
+  {
+    path: "/person/:id",
+    name: "PersonDetails",
+    component: () => import("@/views/PersonDetails.vue"),
+  },
 
   // Not found 404
   {

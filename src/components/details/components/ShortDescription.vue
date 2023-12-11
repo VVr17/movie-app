@@ -21,13 +21,13 @@ export default {
   name: "ShortDescription",
   props: {
     category: { type: String },
-    movie: { type: Object },
+    data: { type: Object },
   },
   setup(props) {
     const { descriptionFields } = useDescriptionFields(
       DESCRIPTION_TYPES.short,
       props.category,
-      props.movie
+      props.data
     );
 
     return { descriptionFields };

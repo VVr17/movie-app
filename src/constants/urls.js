@@ -17,8 +17,9 @@ export const TV_DISCOVER_URL = "discover/tv";
 // Details
 export const MOVIE_URL = "movie/";
 export const TV_URL = "tv/";
+export const PERSON_URL = "person/";
 
-export const CREDIT_URL = "credits"; // Cast // https://api.themoviedb.org/3/movie/{movieId}/credits
+export const CREDIT_URL = "credits";
 export const REVIEWS_URL = "reviews"; // Reviews
 export const SEASONS_URL = "season"; // Seasons /tv/{series_id}/season/{season_number}
 

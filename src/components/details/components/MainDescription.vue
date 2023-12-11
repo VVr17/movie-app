@@ -1,20 +1,20 @@
 <template>
   <div class="pt-3 pb-10 tab:block tab:pt-0 tab:pb-0 tab:mb-12">
     <p class="mb-2 text-base text-white transition duration-300 font-play">
-      Genres: {{ genres }}
+      {{ subTitle }}
     </p>
     <p class="text-sm font-normal text-white">
-      {{ overview }}
+      {{ description }}
     </p>
   </div>
 </template>
 
 <script>
 export default {
-  name: "MovieOverview",
+  name: "MainDescription",
   props: {
-    genres: { type: String },
-    overview: { type: String },
+    subTitle: { type: String },
+    description: { type: String },
   },
 };
 </script>

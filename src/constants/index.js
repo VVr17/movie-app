@@ -24,4 +24,5 @@ export {
   REVIEWS_URL,
   SEASONS_URL,
   IMAGE_BASE_URL,
+  PERSON_URL,
 } from "./urls";
