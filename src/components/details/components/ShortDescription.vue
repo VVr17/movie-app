@@ -1,5 +1,5 @@
 <template>
-  <ul className="flex flex-col gap-2 mb-4 tab:mb-15">
+  <ul className="flex flex-col gap-2 ">
     <li class="text-gray" v-for="field in descriptionFields" :key="field.title">
       <p class="flex gap-2 text-gray">
         <span class="text-s tab:text-base first-letter:capitalize">
@@ -18,6 +18,17 @@
 
         <span v-else className=" tab:text-base">
           {{ field.value }}
+          <router-link
+            v-if="field.hasSeasons"
+            :to="{
+              name: 'TvSeasons',
+              params: { seasonId: FIRST_SEASON },
+              query: { last: field.value, title },
+            }"
+            class="underline pointer"
+          >
+            ( Learn more... )
+          </router-link>
         </span>
       </p>
     </li>
@@ -27,13 +38,14 @@
 <script>
 import { useRoute } from "vue-router";
 import { useDescriptionFields } from "@/composables";
-import { DESCRIPTION_TYPES } from "@/constants";
+import { DESCRIPTION_TYPES, FIRST_SEASON } from "@/constants";
 
 export default {
   name: "ShortDescription",
   props: {
     category: { type: String },
     data: { type: Object },
+    title: { type: String },
   },
   setup(props) {
     const route = useRoute();
@@ -45,7 +57,7 @@ export default {
       props.data
     );
 
-    return { descriptionFields, name };
+    return { descriptionFields, name, FIRST_SEASON };
   },
 };
 </script>

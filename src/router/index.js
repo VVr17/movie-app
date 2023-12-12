@@ -28,6 +28,11 @@ const routes = [
     component: () => import("@/views/TvDetails.vue"),
   },
   {
+    path: "/tv/:id/seasons/:seasonId",
+    name: "TvSeasons",
+    component: () => import("@/views/TvSeasons.vue"),
+  },
+  {
     path: "/person/:id",
     name: "PersonDetails",
     component: () => import("@/views/PersonDetails.vue"),

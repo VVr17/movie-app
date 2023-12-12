@@ -22,6 +22,11 @@ export default {
     const { tv } = CATEGORIES;
     return { tv, TV_URL };
   },
-  components: { DetailsSection, CastSection, LoadingSpinner, Suspense },
+  components: {
+    DetailsSection,
+    CastSection,
+    LoadingSpinner,
+    Suspense,
+  },
 };
 </script>

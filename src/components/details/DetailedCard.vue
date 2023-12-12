@@ -13,7 +13,7 @@
       />
 
       <MovieTagline v-if="data.tagline" :tagline="data.tagline" />
-      <ShortDescription :category="category" :data="data" />
+      <ShortDescription :category="category" :data="data" :title="title" />
     </div>
   </div>
 

@@ -72,6 +72,7 @@ export const useDescriptionFields = (type, category, data) => {
         {
           title: "Number of seasons: ",
           value: data.number_of_seasons,
+          hasSeasons: true,
         },
       ];
 
