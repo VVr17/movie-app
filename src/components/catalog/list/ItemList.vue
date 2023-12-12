@@ -1,6 +1,7 @@
 <template>
   <ul
     class="grid grid-cols-2 tab:grid-cols-5 desk:grid-cols-6 bg-main-dark-gray"
+    :class="styles"
   >
     <li
       v-for="item in items"
@@ -20,6 +21,7 @@ export default {
   props: {
     items: { type: Array },
     category: { type: String },
+    styles: { type: String },
   },
   components: { ItemCard },
 };

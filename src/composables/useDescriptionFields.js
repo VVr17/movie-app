@@ -2,10 +2,10 @@ import { computed } from "vue";
 import { CATEGORIES, DESCRIPTION_TYPES } from "@/constants";
 
 /**
- * Custom composition function for generating description fields based on the category and movie data.
+ * Custom composition function for generating description fields based on the category and provided data.
  *
  * @param {string} type - The type of the description (either "short" or "detailed").
- * @param {string} category - The category of the movie (either "movies" or "tv").
+ * @param {string} category - The category of the data (either "movies", "tv", "people").
  * @param {Object} data - The  data object containing relevant information.
  * @returns {Object} - An object containing computed descriptionFields.
  */
@@ -18,6 +18,7 @@ export const useDescriptionFields = (type, category, data) => {
         {
           title: "Genres: ",
           value: data.genres.map(({ name }) => name).join(", "),
+          collection: data.genres,
         },
         {
           title: "Budget: ",
@@ -41,7 +42,7 @@ export const useDescriptionFields = (type, category, data) => {
           },
           {
             title: "Home page: ",
-            value: "Go to movie",
+            value: "Homepage",
             href: data.homepage,
           },
           {
@@ -66,6 +67,7 @@ export const useDescriptionFields = (type, category, data) => {
         {
           title: "Genres: ",
           value: data.genres.map(({ name }) => name).join(", "),
+          collection: data.genres,
         },
         {
           title: "Number of seasons: ",
@@ -93,7 +95,7 @@ export const useDescriptionFields = (type, category, data) => {
           },
           {
             title: "Home page: ",
-            value: "Go to movie",
+            value: "Homepage",
             href: data.homepage,
           }
         );
@@ -102,6 +104,7 @@ export const useDescriptionFields = (type, category, data) => {
       return fields;
     }
 
+    // People specific description fields
     if (category === CATEGORIES.people) {
       const fields = [
         { title: "Date of birth: ", value: data.birthday },

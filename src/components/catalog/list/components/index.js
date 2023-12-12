@@ -1,5 +1,5 @@
 import ItemImage from "./ItemImage.vue";
 import ItemTitle from "./ItemTitle.vue";
-import ItemGenres from "./ItemGenres.vue";
+import ItemDescription from "./ItemDescription.vue";
 
-export { ItemImage, ItemTitle, ItemGenres };
+export { ItemImage, ItemTitle, ItemDescription };

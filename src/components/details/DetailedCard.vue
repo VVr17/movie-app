@@ -18,18 +18,17 @@
   </div>
 
   <!--  Tablet / Desktop Full info render -->
-  <InfoTitle :title="descriptionTitle" />
+  <InfoTitle :title="detailedDescriptionTitle" />
   <MainDescription
     :category="category"
-    :description="description"
-    :subTitle="descriptionSubTitle"
+    :description="detailedDescription"
+    :subTitle="detailedDescriptionSubTitle"
   />
   <InfoTitle title="Characteristics" />
   <FullCharacteristics :data="data" :category="category" />
 </template>
 
 <script>
-import { CATEGORIES, IMAGE_BASE_URL } from "@/constants";
 import {
   CardTitle,
   CardImage,
@@ -39,6 +38,7 @@ import {
   MainDescription,
   FullCharacteristics,
 } from "./components";
+import { useCardFields } from "@/composables";
 
 export default {
   name: "DetailedCard",
@@ -47,37 +47,22 @@ export default {
     data: { type: Object },
   },
   setup(props) {
-    const imgSrc = props.data?.poster_path
-      ? `${IMAGE_BASE_URL}${props.data.poster_path}`
-      : props.data?.profile_path
-      ? `${IMAGE_BASE_URL}${props.data.profile_path}`
-      : null;
-
-    const title =
-      props.data?.original_title ||
-      props.data?.original_name ||
-      props.data?.name;
-
-    const subTitle =
-      props.category === CATEGORIES.people
-        ? `Popularity: ${props.data?.popularity}`
-        : `Status: ${props.data?.status}`;
-
-    const descriptionTitle =
-      props.category === CATEGORIES.people ? "Biography" : "Overview";
-    const descriptionSubTitle =
-      props.category === CATEGORIES.people
-        ? `Known for department: ${props.data?.known_for_department}`
-        : `Genres: ${props.data?.genres.map(({ name }) => name).join(", ")}`;
-    const description = props.data?.overview || props.data?.biography;
+    const {
+      imgSrc,
+      title,
+      subTitle,
+      detailedDescriptionTitle,
+      detailedDescriptionSubTitle,
+      detailedDescription,
+    } = useCardFields(props.category, props.data);
 
     return {
       imgSrc,
       title,
       subTitle,
-      descriptionTitle,
-      description,
-      descriptionSubTitle,
+      detailedDescriptionTitle,
+      detailedDescriptionSubTitle,
+      detailedDescription,
     };
   },
   components: {

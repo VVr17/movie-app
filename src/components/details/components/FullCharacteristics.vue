@@ -1,5 +1,5 @@
 <template>
-  <table class="pt-3 text-base pb-14 tab:block tab:pt-0 tab:pb-0 tab:mb-17">
+  <table class="pt-3 text-base tab:block tab:pt-0 tab:pb-0">
     <tbody>
       <tr
         v-for="field in descriptionFields"
@@ -11,16 +11,28 @@
         </td>
 
         <td v-if="field.value || field.href" className="text-sm tab:w-80">
-          <p class="pt-2 pb-1">
-            <a
-              v-if="field.href"
-              :href="field.href"
-              class="underline cursor-pointer hover:text-yellow-light focus:text-yellow-light"
-              target="_blank"
-              rel="noopener"
-              >{{ field.value }}</a
+          <p v-if="field.collection" class="flex gap-2 pt-2 pb-1">
+            <router-link
+              v-for="item in field.collection"
+              :key="item.id"
+              class="underline pointer"
+              :to="{ name, query: { genres: item.id } }"
             >
-            <span v-else>{{ field.value }}</span>
+              {{ item.name }}
+            </router-link>
+          </p>
+
+          <a
+            v-if="field.href"
+            :href="field.href"
+            class="pt-2 pb-1 underline cursor-pointer hover:text-yellow-light focus:text-yellow-light"
+            target="_blank"
+            rel="noopener"
+            >{{ field.value }}</a
+          >
+
+          <p v-if="!field.href && !field.collection" class="pt-2 pb-1">
+            {{ field.value }}
           </p>
         </td>
       </tr>
@@ -31,6 +43,7 @@
 <script>
 import { DESCRIPTION_TYPES } from "@/constants";
 import { useDescriptionFields } from "@/composables";
+import { useRoute } from "vue-router";
 
 export default {
   name: "FullCharacteristics",
@@ -39,13 +52,16 @@ export default {
     category: { type: String },
   },
   setup(props) {
+    const route = useRoute();
+    const name = route.name === "MovieDetails" ? "Movies" : "Tv";
+
     const { descriptionFields } = useDescriptionFields(
       DESCRIPTION_TYPES.detailed,
       props.category,
       props.data
     );
 
-    return { descriptionFields };
+    return { descriptionFields, name };
   },
 };
 </script>

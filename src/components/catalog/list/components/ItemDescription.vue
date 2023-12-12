@@ -1,8 +1,8 @@
 <template>
   <p>
-    <span class="text-xs text-yellow-light tab:text-sm"> Genres: </span>
+    <span class="text-xs text-yellow-light tab:text-sm"> {{ title }} </span>
     <span class="text-white text-xxs tab:text-xs">
-      {{ genres }}
+      {{ content }}
     </span>
   </p>
 </template>
@@ -11,7 +11,8 @@
 export default {
   name: "ItemGenres",
   props: {
-    genres: { type: String },
+    title: { type: String },
+    content: { type: String },
   },
 };
 </script>

@@ -9,6 +9,7 @@ export {
 export { DESCRIPTION_TYPES } from "./descriptionTypes";
 export { navigation } from "./navigation";
 export { SORT_TYPES } from "./sortTypes";
+export { MAX_CAST, MAX_CREW } from "./cast";
 export {
   GENRES_MOVIE_URL,
   GENRES_TV_URL,
