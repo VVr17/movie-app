@@ -1,5 +1,5 @@
 <template>
-  <div class="tab:flex tab:gap-14 tab:mb-17 desk:mb-30">
+  <div class="tab:flex tab:gap-14 tab:mb-10 desk:mb-12">
     <!-- Mobile Title Render -->
     <CardTitle :title="title" :subTitle="subTitle" styles="tab:hidden" />
     <CardImage :imgSrc="imgSrc" :title="title" />
@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { useCardFields } from "@/composables";
 import {
   CardTitle,
   CardImage,
@@ -38,7 +39,6 @@ import {
   MainDescription,
   FullCharacteristics,
 } from "./components";
-import { useCardFields } from "@/composables";
 
 export default {
   name: "DetailedCard",

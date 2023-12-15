@@ -42,9 +42,9 @@
 import { Transition, ref, watchEffect } from "vue";
 
 import { FIRST_PAGE, MAX_TOTAL_PAGES, ITEMS_PER_PAGE } from "@/constants";
+import { topScroll } from "@/utils";
 import { useApiData } from "@/composables/api";
 import { useUrlSearchParams } from "@/composables";
-import { topScroll } from "@/utils";
 
 import {
   AppBackdrop,
@@ -54,8 +54,8 @@ import {
 } from "@/components/common";
 import FilterBar from "./filterBar";
 import FilterModal from "./filter";
-import ItemList from "./list";
 import SearchForm from "./search";
+import ItemList from "@/components/common/list";
 
 export default {
   name: "CatalogSection",
@@ -68,6 +68,7 @@ export default {
     const { data, error, isLoading, getData } = useApiData();
     const { url, searchParams, getUrl, getSearchParams } = useUrlSearchParams();
 
+    // Watch changes in URL search params to update data
     watchEffect(async () => {
       getUrl(props.category);
       getSearchParams(props.category);
@@ -76,6 +77,7 @@ export default {
       topScroll();
     });
 
+    // Watch to update total pages
     watchEffect(() => {
       totalResults.value =
         data.value?.total_pages <= MAX_TOTAL_PAGES
@@ -83,6 +85,7 @@ export default {
           : MAX_TOTAL_PAGES * ITEMS_PER_PAGE;
     });
 
+    // Open/close filter side menu
     const toggleFilterIsOpen = () => {
       // Stop body scroll when filter side menu is open
       if (filterIsOpen.value) {

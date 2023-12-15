@@ -41,9 +41,9 @@
 </template>
 
 <script>
+import { useRoute } from "vue-router";
 import { DESCRIPTION_TYPES } from "@/constants";
 import { useDescriptionFields } from "@/composables";
-import { useRoute } from "vue-router";
 
 export default {
   name: "FullCharacteristics",

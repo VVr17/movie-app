@@ -20,7 +20,7 @@ export const TV_URL = "tv/";
 export const PERSON_URL = "person/";
 
 export const CREDIT_URL = "credits";
-export const REVIEWS_URL = "reviews"; // Reviews
-export const SEASONS_URL = "season"; // Seasons /tv/{series_id}/season/{season_number}
+export const REVIEWS_URL = "reviews";
+export const SEASONS_URL = "season";
 
 export const IMAGE_BASE_URL = `https://image.tmdb.org/t/p/w500`;

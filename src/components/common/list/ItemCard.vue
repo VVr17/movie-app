@@ -38,3 +38,4 @@ export default {
   components: { ItemImage, ItemTitle, ItemDescription },
 };
 </script>
+../../common/components

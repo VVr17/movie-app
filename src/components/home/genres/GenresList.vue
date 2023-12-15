@@ -24,6 +24,7 @@
 
 <script>
 import { CATEGORIES } from "@/constants";
+
 export default {
   name: "GenresList",
   props: {

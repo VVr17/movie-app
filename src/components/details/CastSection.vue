@@ -28,7 +28,7 @@ import {
 import { useApiData } from "@/composables/api";
 
 import { InfoTitle } from "./components";
-import ItemList from "@/components/catalog/list";
+import ItemList from "@/components/common/list";
 
 export default {
   name: "CastSection",
@@ -45,6 +45,7 @@ export default {
     const cast = ref(null);
     const crew = ref(null);
 
+    // Watch data to get cast and crew lists
     watchEffect(() => {
       if (credits.value) {
         cast.value =
