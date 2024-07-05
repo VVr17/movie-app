@@ -15,19 +15,11 @@ module.exports = {
       black: colors.black,
       white: colors.white,
 
-      // "label-dark-gray": "#1F1F22",
       "dark-gray": "#3C3E3D",
       "card-dark-gray": "#2A2A2E",
       "main-dark-gray": "#333339",
       "filter-dark-gray": "#313035",
       gray: "#76757E",
-      // "light-gray": "#ebe8e8",
-
-      // "success-green": "#439935",
-      // "error-red": "#ed2222",
-
-      // "medium-red": "#D93D3D",
-      // "light-red": "#F07E7E",
 
       modalBg: "rgba(0, 0, 0, 0.63)",
       "accent-green": "#00CF78",
